@@ -1,0 +1,16 @@
+.form_descripcion{
+    color: #54667A;
+}
+/*______________ Formulario Placeholder para selectores ______________*/
+
+.placeholderselect{
+    display: none;
+}
+.img-lista{
+    height: 100px;
+    width: 100px;
+}
+/*______________ Boton del formulario archivos ______________*/
+#imagenes_varios{
+    background:black;
+}
