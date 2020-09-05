@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator, Hash, Auth;
 use App\TecCadena;
 use App\Archivo;
 use Carbon\carbon;
-
+use DB;
 class TecCadenaController extends Controller
 {
     /**
@@ -17,7 +17,15 @@ class TecCadenaController extends Controller
      */
     public function index()
     {
-        //
+        //Primera consulta envia todos los datos de la tabla
+        // $tecCadenas = TecCadena::all();
+        // return view('tec_cadena.listar')->with(compact('tecCadenas'));
+        //segunda forma combinar dos tablas
+        $tecCadenas = DB::table('tec_cadenas')
+        ->join('users', 'users.id', '=' ,'tec_cadenas.usuario_id')
+        ->select('tec_cadenas.id','tec_cadenas.titulo','tec_cadenas.descripcion','tec_cadenas.nivel','tec_cadenas.puntaje','tec_cadenas.estado as estadoTEC','users.estado','users.name')
+        ->get();
+        return view('tec_cadena.listar')->with(compact('tecCadenas'));
     }
    
     /**
@@ -93,6 +101,7 @@ class TecCadenaController extends Controller
             $tecCadena->imagen_id = $imagen_id;
             $tecCadena->curso_id = ".";
             $tecCadena->usuario_id = $usuario_id;
+            $tecCadena->estado=1;
             if($tecCadena->save()):
                 return back()->withErrors($validator)->with('message','Tecnica de la cadena registrado')->with('typealert', 'success');
             endif;
@@ -107,7 +116,7 @@ class TecCadenaController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('tec_cadena.mostrar');
     }
 
     /**
@@ -141,6 +150,22 @@ class TecCadenaController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $estado_tcadena = TecCadena::find($id);
+        $estadoActual = $estado_tcadena->estado;
+        
+        if ($estadoActual==true){
+            $tecCadenaEstado                       = TecCadena::find($id);
+            $tecCadenaEstado->estado               = false;
+            $tecCadenaEstado->save();
+            return redirect()->route('listar_tec_cadena');
+        }elseif ($estadoActual==false) {
+            $tecCadenaEstado                       = TecCadena::find($id);
+            $tecCadenaEstado->estado               = true;
+            $tecCadenaEstado->save();
+            return redirect()->route('listar_tec_cadena');
+        }else{
+            return redirect()->route('listar_tec_cadena');
+        }
     }
 }

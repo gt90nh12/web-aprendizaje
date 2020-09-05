@@ -24,8 +24,9 @@ class CreateTecCadenasTable extends Migration
             $table->datetime('fecha_fin');
             $table->char('imagen_id',55);
             $table->char('curso_id',55);
-            $table->char('usuario_id',55);
+            $table->integer('usuario_id');
             $table->timestamps();
+            $table->boolean('estado');
         });
     }
 

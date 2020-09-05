@@ -51,8 +51,22 @@ Route::get('/estado_role{id}', 'RoleController@destroy')->name('estado_role');
 
 /*-------------------------------- TECNICA DE LA MEMORIA  --------------------------------*/
 //Crear tecnica
+Route::get('/listar_tec_cadena','TecCadenaController@index')->name('listar_tec_cadena');
 Route::get('/crear_tec_cadena','TecCadenaController@create')->name('crear_tec_cadena');
 Route::post('/almacenar_tec_cadena','TecCadenaController@store')->name('almacenar_tec_cadena');
+Route::get('/mostrar_tec_cadena{id}','TecCadenaController@show')->name('mostrar_tec_cadena');
+Route::get('/estado_tcadena{id}', 'TecCadenaController@destroy')->name('estado_tcadena');
 
+/*-------------------------------- TECNICA DE LA CONCENTRACION  --------------------------------*/
+Route::get('/listar_tec_concentracion','TecConcentracionController@index')->name('listar_tec_concentracion');
+Route::get('/crear_tec_concentracion','TecConcentracionController@create')->name('crear_tec_concentracion');
+Route::post('/almacenar_tec_concentracion','TecConcentracionController@store')->name('almacenar_tec_concentracion');
+Route::get('/editar_tec_concentracion{id}','TecConcentracionController@edit')->name('editar_tec_concentracion');
+Route::post('/modificar_tec_concentracion{id}', 'TecConcentracionController@update')->name('modificar_tec_concentracion');
+Route::get('/estado_tconcentracion{id}', 'TecConcentracionController@destroy')->name('estado_tconcentracion');
 
-
+/*-------------------------------------- PRUEBA GENERAL  ---------------------------------------*/
+Route::get('/listar_prueba','PruebaController@index')->name('listar_prueba');
+Route::get('/crear_prueba','PruebaController@create')->name('crear_prueba');
+Route::post('/almacenar_prueba','PruebaController@store')->name('almacenar_prueba');
+Route::get('/estado_prueba{id}', 'PruebaController@destroy')->name('estado_prueba');

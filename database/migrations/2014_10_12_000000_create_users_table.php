@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('estado');
+            $table->text('direccion_imagen');
+            $table->integer('persona_id');
         });
     }
 
